@@ -1,0 +1,78 @@
+.container {
+    padding: 20px;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.imageUser {
+    width: 90%;
+    width: 90px;
+    border-radius: 50px;
+}
+
+.headText {
+    color: rgb(60, 178, 60);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.inputText {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    color: black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 2px solid rgb(77, 174, 79);
+    border-radius: 5px;
+    font-size: 16px;
+    min-height: 90px;
+}
+
+.ButtnSubm {
+    width: 30%;
+    padding: 10px;
+    background-color: rgb(60, 178, 60);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.ButtnSubm:hover {
+    background-color: rgb(57, 144, 59);
+}
+
+.headChatText {
+    color: rgb(77, 174, 79);
+    margin-bottom: 10px;
+}
+
+.chatText {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.chatText:nth-child(odd) {
+    display: flex;
+    background-color: rgb(60, 178, 60);
+    align-items: flex-end;
+}
+
+.chatText:nth-child(even) {
+    display: flex;
+    background-color: rgb(60, 178, 60);
+    align-items: flex-end;
+
+}
