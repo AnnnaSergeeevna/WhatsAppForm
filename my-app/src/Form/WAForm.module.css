@@ -1,7 +1,17 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 .container {
     padding: 20px;
-    background-color: #ffffff;
-    font-family: Arial, sans-serif;
+    background-size: cover;
+    background-position: center;
+    height: 110vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .imageUser {
@@ -10,15 +20,23 @@
     border-radius: 50px;
 }
 
-.headText {
+/* .headText {
     color: rgb(60, 178, 60);
     text-align: center;
     margin-bottom: 20px;
+} */
+.inputText,
+.inputTextArea,
+.chatContainer {
+    width: 90%;
+    margin: 8px auto;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 10px;
 }
 
 .inputText {
-    width: 90%;
-    padding: 10px;
+
     margin: 8px 0;
     color: black;
     border-radius: 5px;
@@ -26,13 +44,24 @@
 }
 
 textarea {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
+
     border: 2px solid rgb(77, 174, 79);
     border-radius: 5px;
     font-size: 16px;
     min-height: 90px;
+    cursor: text;
+}
+
+.chatContainer {
+
+    font-size: 16px;
+    background-image: url('backgroundimg.jpg');
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .ButtnSubm {
@@ -45,6 +74,7 @@ textarea {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .ButtnSubm:hover {
@@ -57,22 +87,24 @@ textarea {
 }
 
 .chatText {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px 0;
     display: flex;
     flex-direction: column;
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 5px;
-}
-
-.chatText:nth-child(odd) {
-    display: flex;
     background-color: rgb(60, 178, 60);
     align-items: flex-end;
 }
 
-.chatText:nth-child(even) {
-    display: flex;
-    background-color: rgb(60, 178, 60);
-    align-items: flex-end;
+.userMessage {
+    align-self: flex-end;
+    background-color: rgb(77, 174, 79);
+    color: white;
+}
 
+.recipientMessage {
+    align-self: flex-start;
+    background-color: rgb(200, 200, 200);
+    color: black;
 }
