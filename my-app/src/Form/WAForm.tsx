@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./WAForm.module.css";
 
-
 interface Message {
     id: string;
     text: string;
@@ -49,40 +48,43 @@ const WAForm: React.FC = () => {
         const url = `https://api.green-api.com/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`;
         try {
             const response = await fetch(url);
-
             if (!response.ok) {
                 console.error(`Ошибка сервера ${response.status}: ${response.statusText}`);
                 return;
             }
 
             const data = await response.json();
-
-            if (!data) {
+            if (!data || !data.body) {
                 console.log("Нет новых сообщений (data === null)");
                 return;
             }
 
-            if (!data.body) {
-                console.warn("Ответ API не содержит body:", data);
+            const { typeWebhook, idMessage, senderData, messageData } = data.body;
+            const text = messageData?.textMessageData?.textMessage;
+            if (!text || text.trim() === "") {
+                if (data.receiptId) {
+                    await fetch(
+                        `https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${data.receiptId}`,
+                        { method: "DELETE" }
+                    );
+                }
                 return;
             }
+            setChat((prevChat) => {
+                if (prevChat.some((msg) => msg.id === idMessage)) {
+                    return prevChat;
+                }
 
-            console.log("Полученные данные:", data);
-
-            const { typeWebhook, idMessage, senderData, messageData } = data.body;
-
-            if (typeWebhook === "incomingMessageReceived" && messageData?.textMessageData?.textMessage) {
-                setChat((prevChat) => [
+                return [
                     ...prevChat,
                     {
                         id: idMessage,
-                        text: messageData.textMessageData.textMessage,
-                        sender: "recipient" as const,
-                        senderName: senderData.senderName || "Неизвестный",
+                        text: messageData?.textMessageData?.textMessage || "",
+                        sender: typeWebhook === "incomingMessageReceived" ? "recipient" : "user",
+                        senderName: senderData?.senderName || "Неизвестный",
                     },
-                ]);
-                console.log("Обновленный чат:", chat);
-            }
+                ];
+            });
 
             if (data.receiptId) {
                 await fetch(
@@ -94,6 +96,7 @@ const WAForm: React.FC = () => {
             console.error("Ошибка при получении сообщений:", error);
         }
     };
+
     useEffect(() => {
         const fetchWaSettings = async () => {
             if (!idInstance || !apiTokenInstance) {
